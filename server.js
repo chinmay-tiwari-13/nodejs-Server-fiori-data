@@ -141,13 +141,14 @@ app.put('/updateKarData/:id', (req,res) => {
 });
 
 app.delete('/deleteKarData/:id', (req, res) => {
-    const id = req.params.id;
-    const deletedData = data.find((data) => {
-        if(data.id === id){
-            return data;
-        }
+    const id = parseInt(req.params.id);
+    data.find((item) => {
+      if(item.id == id) {
+        const index = data.indexOf(item);
+        data.splice(index, 1);
+        res.json({ message: "Data deleted successfully" });
+      }
     });
-    data.pop(deletedData);
 });
 
 app.listen(port, () => {
